@@ -9,6 +9,7 @@ import (
 	"crypto/cipher"
 	"crypto/sha256"
 	"crypto/sha512"
+	"encoding/base64"
 )
 
 func _md5(s string) string {
@@ -37,6 +38,7 @@ func _sha512(s string) string {
 	cipherStr := sha512Ctx.Sum(nil)
 	return hex.EncodeToString(cipherStr)
 }
+
 
 type AesEncrypt struct {
 	Key string
@@ -150,3 +152,13 @@ func (this *Xp) Sha256(s string) string {
 func (this *Xp) Sha512(s string) string {
 	return _sha512(s)
 }
+
+func (this *Xp) Base64Decode(s string) string {
+	
+	return string(base64.StdEncoding.DecodeString(s))
+}
+
+func (this *Xp) Base64Encode(s string) string {
+	return base64.StdEncoding.EncodeToString([]byte(s))
+}
+
