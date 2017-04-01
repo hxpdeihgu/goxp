@@ -153,9 +153,12 @@ func (this *Xp) Sha512(s string) string {
 	return _sha512(s)
 }
 
-func (this *Xp) Base64Decode(s string) string {
-	
-	return string(base64.StdEncoding.DecodeString(s))
+func (this *Xp) Base64Decode(s string) (string,error) {
+	v,err:=base64.StdEncoding.DecodeString(s)
+	if err !=nil {
+		return "",err
+	}
+	return string(v),nil
 }
 
 func (this *Xp) Base64Encode(s string) string {
