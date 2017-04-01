@@ -45,7 +45,6 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 			//_,ok:=c.Tv.Type().MethodByName(c.method)
 			method := c.Tv.MethodByName(c.method)
 			if method.IsValid() {
-				fmt.Println(method)
 				num:=method.Type().NumIn()
 				switch num {
 				case argumentNum:
@@ -86,7 +85,6 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 					this.ErrFunc(this)
 				}
 			}else {
-				fmt.Println("not nil")
 				if this.ErrFunc == nil {
 					http.NotFound(rw,r)
 					return
