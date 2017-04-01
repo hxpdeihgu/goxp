@@ -6,21 +6,44 @@ import (
 	"log"
 )
 
-func logMsg(msg interface{},prefix string)  {
-	logger := log.New(os.Stdout,prefix, log.Lshortfile|log.LstdFlags)
-	logger.Println(msg)
+func logMsg(prefix string) *log.Logger {
+	return log.New(os.Stdout,prefix, log.Lshortfile|log.LstdFlags)
+}
+
+func NewError(out ...io.Writer) *log.Logger {
+	if len(out)>0{
+		return log.New(out[0],"Error: ", log.Lshortfile|log.LstdFlags)
+	}
+	return log.New(os.Stdout,"Error: ", log.Lshortfile|log.LstdFlags)
+}
+
+func NewWarning(out ...io.Writer) *log.Logger {
+	if len(out)>0{
+		return log.New(out[0],"Warning: ", log.Lshortfile|log.LstdFlags)
+	}
+	return log.New(os.Stdout,"Warning: ", log.Lshortfile|log.LstdFlags)
+}
+
+func NewNotice(out ...io.Writer) *log.Logger {
+	if len(out)>0{
+		return log.New(out[0],"Notice: ", log.Lshortfile|log.LstdFlags)
+	}
+	return log.New(os.Stdout,"Notice: ", log.Lshortfile|log.LstdFlags)
 }
 
 func Error(msg interface{}){
-	logMsg(msg,"Error: ")
+	l:=logMsg("Error: ")
+	l.Println(msg)
 }
 
 func Warning(msg interface{}){
-	logMsg(msg,"Warning: ")
+	l:=logMsg("Warning: ")
+	l.Println(msg)
 }
 
 func Notice(msg interface{}){
-	logMsg(msg,"Notice: ")
+	l:=logMsg("Notice: ")
+	l.Println(msg)
 }
 
 func msgs(out io.Writer,msg string,prefix string){
