@@ -1,6 +1,11 @@
 # goxp
 golang web框架
 #使用
+
+``
+go get github.com/hxpdeihgu/goxp
+``
+
 1.创建main.go
 ```
 func main(){
