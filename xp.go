@@ -45,3 +45,9 @@ func (this *Xp) GetConfig(key string) string {
 	}
 	return ""
 }
+
+func (this *Xp) DelConfig(key string)  {
+	this.Lock()
+	defer this.RLock()
+	delete(this.config,key)
+}
