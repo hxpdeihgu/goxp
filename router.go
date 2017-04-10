@@ -9,9 +9,9 @@ import (
 	"encoding/json"
 )
 const (
-	argumentNum = iota
-	argumentNum1
-	argumentNum2
+	argumentOne = iota
+	argumentTwo
+	argumentThree
 )
 type Xp struct {
 	Rs http.ResponseWriter
@@ -45,20 +45,20 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		if method.IsValid() {
 			bf:= c.Tv.MethodByName(BF)
 			if bf.IsValid() {
-				in:=make([]reflect.Value,argumentNum)
+				in:=make([]reflect.Value,argumentOne)
 				in = append(in,reflect.ValueOf(this))
 				this.returnFun(bf,in)
 			}
 			num:=method.Type().NumIn()
 			switch num {
-			case argumentNum:
+			case argumentOne:
 				this.returnFun(method,nil)
-			case argumentNum1:
-				in:=make([]reflect.Value,argumentNum)
+			case argumentTwo:
+				in:=make([]reflect.Value,argumentOne)
 				in = append(in,reflect.ValueOf(this))
 				this.returnFun(method,in)
-			case argumentNum2:
-				in:=make([]reflect.Value,argumentNum)
+			case argumentThree:
+				in:=make([]reflect.Value,argumentOne)
 				in = append(in,reflect.ValueOf(rw))
 				in = append(in,reflect.ValueOf(r))
 				this.returnFun(method,in)
@@ -72,7 +72,7 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 			}
 			af:= c.Tv.MethodByName(AF)
 			if af.IsValid() {
-				in:=make([]reflect.Value,argumentNum)
+				in:=make([]reflect.Value,argumentOne)
 				in = append(in,reflect.ValueOf(this))
 				this.returnFun(af,in)
 			}
@@ -98,7 +98,7 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 func (this *Xp) returnFun(method reflect.Value,in []reflect.Value)  {
 	v:=method.Call(in)
 	if len(v)>0 {
-		b,err:=json.Marshal(v[argumentNum].Interface())
+		b,err:=json.Marshal(v[argumentOne].Interface())
 		if err==nil {
 			this.Rs.Header().Set("Content-Type", "application/json; charset=UTF-8")
 			this.Rs.Write(b)
