@@ -39,69 +39,91 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		}
 	}()
 	this.restXp(rw,r)
-	if r.URL.Path != faviconIco {
-		c,err := getController(this,r)
-		if err==nil{
-			//_,ok:=c.Tv.Type().MethodByName(c.method)
-			method := c.Tv.MethodByName(c.method)
-			if method.IsValid() {
-				num:=method.Type().NumIn()
-				switch num {
-				case argumentNum:
-					v:=method.Call(nil)
-					if len(v)>0 {
-						b,err:=json.Marshal(v[argumentNum].Interface())
-						if err==nil {
-							rw.Write(b)
-						}
+	c,err := getController(this,r)
+	if err==nil{
+		method := c.Tv.MethodByName(c.method)
+		if method.IsValid() {
+			bf:= c.Tv.MethodByName(BF)
+			if bf.IsValid() {
+				in:=make([]reflect.Value,argumentNum)
+				in = append(in,reflect.ValueOf(this))
+				v:=bf.Call(in)
+				if len(v)>0 {
+					b,err:=json.Marshal(v[argumentNum].Interface())
+					if err==nil {
+						rw.Write(b)
 					}
-				case argumentNum1:
-					in:=make([]reflect.Value,argumentNum)
-					in = append(in,reflect.ValueOf(this))
-					v:=method.Call(in)
-					if len(v)>0 {
-						b,err:=json.Marshal(v[argumentNum].Interface())
-						if err==nil {
-							rw.Write(b)
-						}
-					}
-				case argumentNum2:
-					in:=make([]reflect.Value,argumentNum)
-					in = append(in,reflect.ValueOf(rw))
-					in = append(in,reflect.ValueOf(r))
-					v:=method.Call(in)
-					if len(v)>0 {
-						b,err:=json.Marshal(v[argumentNum].Interface())
-						if err==nil {
-							rw.Write(b)
-						}
-					}
-				default:
-					this.ErrMsg = errors.New("Parameter is not in conformity with the requirements")
-					if this.ErrFunc == nil{
-						http.NotFound(rw,r)
-						break
-					}
-					this.ErrFunc(this)
 				}
-			}else {
-				if this.ErrFunc == nil {
+			}
+			num:=method.Type().NumIn()
+			switch num {
+			case argumentNum:
+				v:=method.Call(nil)
+				if len(v)>0 {
+					b,err:=json.Marshal(v[argumentNum].Interface())
+					if err==nil {
+						rw.Write(b)
+					}
+				}
+			case argumentNum1:
+				in:=make([]reflect.Value,argumentNum)
+				in = append(in,reflect.ValueOf(this))
+				v:=method.Call(in)
+				if len(v)>0 {
+					b,err:=json.Marshal(v[argumentNum].Interface())
+					if err==nil {
+						rw.Write(b)
+					}
+				}
+			case argumentNum2:
+				in:=make([]reflect.Value,argumentNum)
+				in = append(in,reflect.ValueOf(rw))
+				in = append(in,reflect.ValueOf(r))
+				v:=method.Call(in)
+				if len(v)>0 {
+					b,err:=json.Marshal(v[argumentNum].Interface())
+					if err==nil {
+						rw.Write(b)
+					}
+				}
+			default:
+				this.ErrMsg = errors.New("Parameter is not in conformity with the requirements")
+				if this.ErrFunc == nil{
 					http.NotFound(rw,r)
-					return
+					break
 				}
-				this.ErrMsg = errors.New("404 error")
 				this.ErrFunc(this)
 			}
-			
+			af:= c.Tv.MethodByName(AF)
+			if af.IsValid() {
+				in:=make([]reflect.Value,argumentNum)
+				in = append(in,reflect.ValueOf(this))
+				v:=af.Call(in)
+				if len(v)>0 {
+					b,err:=json.Marshal(v[argumentNum].Interface())
+					if err==nil {
+						rw.Write(b)
+					}
+				}
+			}
 		}else {
-			if this.ErrFunc == nil{
+			if this.ErrFunc == nil {
 				http.NotFound(rw,r)
 				return
 			}
 			this.ErrMsg = errors.New("404 error")
 			this.ErrFunc(this)
 		}
+		
+	}else {
+		if this.ErrFunc == nil{
+			http.NotFound(rw,r)
+			return
+		}
+		this.ErrMsg = errors.New("404 error")
+		this.ErrFunc(this)
 	}
+	
 }
 
 //getReflectTypeValue 获取控制器

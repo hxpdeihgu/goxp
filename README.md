@@ -3,7 +3,7 @@ golang web框架
 #使用
 
 ``
-go get -u github.com/hxpdeihgu/goxp
+go get github.com/hxpdeihgu/goxp
 ``
 
 1.创建main.go

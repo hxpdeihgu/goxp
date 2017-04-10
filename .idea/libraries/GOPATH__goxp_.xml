@@ -1,0 +1,25 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;goxp&gt;">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../libs" />
+      <root url="file://$PROJECT_DIR$/../未命名文件夹" />
+      <root url="file://$PROJECT_DIR$/../view" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../controller" />
+      <root url="file://$PROJECT_DIR$/../router" />
+      <root url="file://$PROJECT_DIR$/../tmp" />
+    </CLASSES>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../libs" />
+      <root url="file://$PROJECT_DIR$/../未命名文件夹" />
+      <root url="file://$PROJECT_DIR$/../view" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../controller" />
+      <root url="file://$PROJECT_DIR$/../router" />
+      <root url="file://$PROJECT_DIR$/../tmp" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>

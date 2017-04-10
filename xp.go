@@ -26,3 +26,7 @@ func Run(this *Xp){
 func (this *Xp) Run(addr string){
 	log.Fatal(http.ListenAndServe(addr,this))
 }
+
+func (this *Xp) Redirect(url string){
+	http.Redirect(this.Rs,this.Rq,url,301)
+}

@@ -16,3 +16,8 @@ const pathPrefix  = "view/"
 
 //模板后缀
 const templateSuffix  = ".html"
+
+const BF  = "BF"
+
+const AF = "AF"
+
