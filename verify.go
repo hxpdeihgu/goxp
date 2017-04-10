@@ -78,3 +78,7 @@ var (
 func (this *Xp) Email(str string) bool {
 	return RxEmail.MatchString(str)
 }
+
+func (this *Xp) Url(str string) bool {
+	return RxURL.MatchString(str)
+}
