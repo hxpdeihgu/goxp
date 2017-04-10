@@ -1,5 +1,6 @@
 # goxp
 golang web框架
+
 #使用
 
 ``
@@ -52,6 +53,20 @@ func (Index) Index2(this *goxp.Xp) {
 {.data}
 ```
 
+继承model方法使用
+
+```
+type Test struct {
+	goxp.Model
+}
+
+//Test 不能传入指针
+func (t Test) Abc(this *goxp.Xp) string {
+	return t.Md5("abc")
+}
+
+
+````
 #session使用
 ```
 func main(){
@@ -69,4 +84,5 @@ func (Index) Test(this *goxp.Xp) {
 	fmt.Println(sessions.Get("name"))
 }
 ```
+
 
