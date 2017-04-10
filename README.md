@@ -42,6 +42,7 @@ func (Index) Index2(rw http.ResponseWriter, r *http.Request) {
     rw.Write([]byte("hello world"))
 }
 ```
+然后在浏览器访问`http://localhost:8080`, 将会得到一个对应字符串返回
 
 #模板创建
 ```go
