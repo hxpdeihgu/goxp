@@ -9,7 +9,6 @@ import (
 	"crypto/cipher"
 	"crypto/sha256"
 	"crypto/sha512"
-	"encoding/base64"
 )
 
 func _md5(s string) string {
@@ -137,31 +136,4 @@ func (this *AesEncrypt) DecryptBytes(src []byte) ([]byte,error) {
 	return decrypted, nil
 }
 
-func (this *Xp) Md5(s string) string {
-	return _md5(s)
-}
-
-func (this *Xp) Sha1(s string) string {
-	return _sha1(s)
-}
-
-func (this *Xp) Sha256(s string) string {
-	return _sha256(s)
-}
-
-func (this *Xp) Sha512(s string) string {
-	return _sha512(s)
-}
-
-func (this *Xp) Base64Decode(s string) (string,error) {
-	v,err:=base64.StdEncoding.DecodeString(s)
-	if err !=nil {
-		return "",err
-	}
-	return string(v),nil
-}
-
-func (this *Xp) Base64Encode(s string) string {
-	return base64.StdEncoding.EncodeToString([]byte(s))
-}
 

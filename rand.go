@@ -4,7 +4,7 @@ import (
 	"math/rand"
 )
 
-func (this *Xp) Rand(len int8) string {
+func (this *Model) Rand(len int8) string {
 	b := make([]byte, len)
 	_, err := rand.Read(b)
 	if err != nil {
