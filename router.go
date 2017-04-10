@@ -20,7 +20,7 @@ type Xp struct {
 	thisPackage string
 	Data
 	trees
-	Config
+	config
 	ErrFunc
 	PanicFunc
 	ErrMsg error
@@ -145,12 +145,11 @@ func (this *Xp) addType(d interface{}) {
 
 //getPath 组合访问地址
 func getPath(pkg string,name string,this *Xp) string {
-	if prefix,ok:= this.Config[controller];ok{
+	if prefix,ok:= this.config[controller];ok{
 		pkg=strings.TrimPrefix(pkg,prefix)
 	}else {
 		pkg=strings.TrimPrefix(pkg,controller)
 	}
-	
 	name=strings.ToLower(name)
 	return (pkg+separator+name)
 }

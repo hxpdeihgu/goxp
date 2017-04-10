@@ -21,7 +21,7 @@ type trees struct {
 }
 
 //配置项目
-type Config map[string]string
+type config map[string]string
 
 //Controller 控制器信息
 type Controller struct{
