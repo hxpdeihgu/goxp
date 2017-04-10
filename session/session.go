@@ -17,6 +17,8 @@ import (
 )
 
 //cookiename
+//session实现文件存储
+//其他存储可以自行添加
 const sessionName = "_goxpid"
 const sessionPath = "/tmp/session"
 const aesKey = "goxpGoxpGOxpGOXpGOXP"
