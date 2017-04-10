@@ -162,6 +162,9 @@ func (this *session) sessionRead() error {
 	return nil
 }
 
+func (this *session) Id() string {
+	return this.id
+}
 func gcpath(path string, info os.FileInfo, err error) error {
 	if err != nil {
 		return err
