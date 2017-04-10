@@ -47,45 +47,21 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 			if bf.IsValid() {
 				in:=make([]reflect.Value,argumentNum)
 				in = append(in,reflect.ValueOf(this))
-				v:=bf.Call(in)
-				if len(v)>0 {
-					b,err:=json.Marshal(v[argumentNum].Interface())
-					if err==nil {
-						rw.Write(b)
-					}
-				}
+				this.returnFun(bf,in)
 			}
 			num:=method.Type().NumIn()
 			switch num {
 			case argumentNum:
-				v:=method.Call(nil)
-				if len(v)>0 {
-					b,err:=json.Marshal(v[argumentNum].Interface())
-					if err==nil {
-						rw.Write(b)
-					}
-				}
+				this.returnFun(method,nil)
 			case argumentNum1:
 				in:=make([]reflect.Value,argumentNum)
 				in = append(in,reflect.ValueOf(this))
-				v:=method.Call(in)
-				if len(v)>0 {
-					b,err:=json.Marshal(v[argumentNum].Interface())
-					if err==nil {
-						rw.Write(b)
-					}
-				}
+				this.returnFun(method,in)
 			case argumentNum2:
 				in:=make([]reflect.Value,argumentNum)
 				in = append(in,reflect.ValueOf(rw))
 				in = append(in,reflect.ValueOf(r))
-				v:=method.Call(in)
-				if len(v)>0 {
-					b,err:=json.Marshal(v[argumentNum].Interface())
-					if err==nil {
-						rw.Write(b)
-					}
-				}
+				this.returnFun(method,in)
 			default:
 				this.ErrMsg = errors.New("Parameter is not in conformity with the requirements")
 				if this.ErrFunc == nil{
@@ -98,13 +74,7 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 			if af.IsValid() {
 				in:=make([]reflect.Value,argumentNum)
 				in = append(in,reflect.ValueOf(this))
-				v:=af.Call(in)
-				if len(v)>0 {
-					b,err:=json.Marshal(v[argumentNum].Interface())
-					if err==nil {
-						rw.Write(b)
-					}
-				}
+				this.returnFun(af,in)
 			}
 		}else {
 			if this.ErrFunc == nil {
@@ -125,7 +95,16 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	}
 	
 }
-
+func (this *Xp) returnFun(method reflect.Value,in []reflect.Value)  {
+	v:=method.Call(in)
+	if len(v)>0 {
+		b,err:=json.Marshal(v[argumentNum].Interface())
+		if err==nil {
+			this.Rs.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			this.Rs.Write(b)
+		}
+	}
+}
 //getReflectTypeValue 获取控制器
 func getController(this *Xp,r *http.Request) (*Controller,error) {
 	this.RLock()
