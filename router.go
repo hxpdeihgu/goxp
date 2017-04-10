@@ -43,9 +43,9 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if err==nil{
 		method := c.Tv.MethodByName(c.method)
 		if method.IsValid() {
+			in:=make([]reflect.Value,argumentOne)
 			bf:= c.Tv.MethodByName(BF)
 			if bf.IsValid() {
-				in:=make([]reflect.Value,argumentOne)
 				in = append(in,reflect.ValueOf(this))
 				this.returnFun(bf,in)
 			}
@@ -54,11 +54,9 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 			case argumentOne:
 				this.returnFun(method,nil)
 			case argumentTwo:
-				in:=make([]reflect.Value,argumentOne)
 				in = append(in,reflect.ValueOf(this))
 				this.returnFun(method,in)
 			case argumentThree:
-				in:=make([]reflect.Value,argumentOne)
 				in = append(in,reflect.ValueOf(rw))
 				in = append(in,reflect.ValueOf(r))
 				this.returnFun(method,in)
@@ -72,7 +70,6 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 			}
 			af:= c.Tv.MethodByName(AF)
 			if af.IsValid() {
-				in:=make([]reflect.Value,argumentOne)
 				in = append(in,reflect.ValueOf(this))
 				this.returnFun(af,in)
 			}
