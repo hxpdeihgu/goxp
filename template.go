@@ -18,16 +18,15 @@ func rander(w http.ResponseWriter,data interface{},path string){
 //Rander 模板渲染
 func (this *Xp)Rander(paths ...string){
 	var p string = pathPrefix
-	if pathP,ok:=this.Config[pathPrefix];ok{
+	if pathP,ok:=this.Config["pathPrefix"];ok{
 		p = pathP
 	}
 	if len(paths)>0{
 		rander(this.Rs,this.Data,p+paths[0])
 	}else {
-		if ts,ok:=this.Config[templateSuffix];ok{
+		if ts,ok:=this.Config["templateSuffix"];ok{
 			rander(this.Rs,this.Data,p+this.thisMethod+ts)
 		}else {
-			//fmt.Println(this.Rs,this.Data,path.Join(p,this.thisPackage,this.thisMethod)+templateSuffix)
 			rander(this.Rs,this.Data,path.Join(p,this.thisPackage,this.thisMethod)+templateSuffix)
 		}
 		
