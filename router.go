@@ -3,7 +3,7 @@ package goxp
 import (
 	"net/http"
 	"reflect"
-	"github.com/pkg/errors"
+	"errors"
 	"strings"
 	"fmt"
 	"encoding/json"
@@ -95,11 +95,17 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 func (this *Xp) returnFun(method reflect.Value,in []reflect.Value)  {
 	v:=method.Call(in)
 	if len(v)>0 {
-		b,err:=json.Marshal(v[argumentOne].Interface())
-		if err==nil {
-			this.Rs.Header().Set("Content-Type", "application/json; charset=UTF-8")
-			this.Rs.Write(b)
+		switch method.Type().Out(0).Kind() {
+		case reflect.String:
+			this.Rs.Write([]byte(v[argumentOne].String()))
+		default:
+			b,err:=json.Marshal(v[argumentOne].Interface())
+			if err==nil {
+				this.Rs.Header().Set("Content-Type", "application/json; charset=UTF-8")
+				this.Rs.Write(b)
+			}
 		}
+
 	}
 }
 //getReflectTypeValue 获取控制器
