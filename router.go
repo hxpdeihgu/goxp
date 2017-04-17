@@ -49,6 +49,7 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 				in = append(in,reflect.ValueOf(this))
 				this.returnFun(bf,in)
 			}
+			in=make([]reflect.Value,argumentOne)
 			num:=method.Type().NumIn()
 			switch num {
 			case argumentOne:
@@ -70,6 +71,7 @@ func (this *Xp) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 			}
 			af:= c.Tv.MethodByName(AF)
 			if af.IsValid() {
+				in=make([]reflect.Value,argumentOne)
 				in = append(in,reflect.ValueOf(this))
 				this.returnFun(af,in)
 			}
