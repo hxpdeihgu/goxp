@@ -88,8 +88,8 @@ func (Index) Test(this *goxp.Xp) {
 }
 ```
 
-#列出所有服务器地址，nginx 自动均衡分发请求到各个服务器。 
- ```
+###列出所有服务器地址，nginx 自动均衡分发请求到各个服务器。 
+ ```nginx
 upstream frontends {    
     ip_hash;  
     server 192.168.199.1:8088;
@@ -117,7 +117,7 @@ server {
 }`
 ```
 //this host ip 192.168.199.1
-```
+```go
 func main() {
     ...
     t:=goxp.New()
