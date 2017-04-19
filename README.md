@@ -75,7 +75,7 @@ func (t Test) Abc(this *goxp.Xp) string {
 func main(){
 	session.SessionInit()//添加seeion控件
 	t:=goxp.New()
-	t.Add(new(b.Index))
+	t.Add(new(controller.Index)))
 	t.Run(":8080")
 }
 ```
